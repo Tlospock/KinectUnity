@@ -12,7 +12,7 @@ public class PlayerMovingScript : MonoBehaviour
     private Vector3 offset;         //Private variable to store the offset distance between the player and camera
     private Vector3 keyoffset;         //Private variable to store the offset distance between the player and camera
     public int moveRange, initialX, initialY;
-    public bool[,] reachableCases;
+    public bool[,] reachableCases; 
 
     // Use this for initialization
     void Start()
