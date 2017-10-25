@@ -3,3 +3,5 @@
 ################################################################################
 
 /.vs/KinectUnity/v15/Server/sqlite3
+*.lock
+/Temp/UnityLockfile
