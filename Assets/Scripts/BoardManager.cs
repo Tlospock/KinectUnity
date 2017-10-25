@@ -35,6 +35,9 @@ public class BoardManager : MonoBehaviour {
 
     private List<Vector3> gridPositions = new List<Vector3>();
 
+    private Vector3 screenPoint;
+    private Vector3 offset;
+
     void InitialiseList()
     {
         gridPositions.Clear();
@@ -84,19 +87,14 @@ public class BoardManager : MonoBehaviour {
     //LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
     void LayoutObjectAtRandom(GameObject[] tileArray, int minimum, int maximum)
     {
-        //Choose a random number of objects to instantiate within the minimum and maximum limits
         int objectCount = Random.Range(minimum, maximum + 1);
 
-        //Instantiate objects until the randomly chosen limit objectCount is reached
         for (int i = 0; i < objectCount; i++)
         {
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+            //Choose a position for randomPosition by getting a random position from our list
             Vector3 randomPosition = RandomPosition();
 
-            //Choose a random tile from tileArray and assign it to tileChoice
             GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
-
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
             Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
     }
@@ -124,4 +122,21 @@ public class BoardManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    // ##### Mouse events ######
+
+    // Mouse down event: we are searching if the player object has been selected
+    private void OnMouseDown()
+    {
+        screenPoint = Camera.main.WorldToScreenPoint(gameObject.transform.position);
+        offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+    }
+
+    // Mouse drag event: if the current player object has been selected, we have to draw 
+    private void OnMouseDrag()
+    {
+        Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
+        Vector3 cursorPosition = Camera.main.ScreenToWorldPoint(cursorPoint) + offset;
+        transform.position = cursorPosition;
+    }
 }
