@@ -20,12 +20,16 @@ public class BoardManager : MonoBehaviour {
     public int columns = 10;
     public int rows = 10;
 
+    private float tileSize;
+
     public count wallCount = new count(3, 6);
     public count foodItem  = new count(6, 9);
 
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
     public GameObject[] outerWallTiles;
+
+    public Camera mainCamera;
 
     private Transform boardHolder;
 
@@ -46,7 +50,10 @@ public class BoardManager : MonoBehaviour {
 
     void BoardSetup()
     {
+        tileSize = floorTiles[0].GetComponent<SpriteRenderer>().bounds.size.magnitude;
         boardHolder = new GameObject("Board").transform;
+        mainCamera = Camera.main;
+        mainCamera.transform.Translate(new Vector3((columns / 2 - 2) * tileSize, (rows / 2 - 2) * tileSize, 0));
 
         for (int x = -1; x < columns + 1; x++)
         {

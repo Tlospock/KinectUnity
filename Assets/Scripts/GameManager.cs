@@ -8,9 +8,13 @@ public class GameManager : MonoBehaviour {
     private BoardManager boardScript;                       //Store a reference to our BoardManager which will set up the level.
     private int level = 3;
 
+    private Camera mainCamera;
+
     //Awake is always called before any Start functions
     void Awake()
     {
+        mainCamera = Camera.main;
+
         //Check if instance already exists
         if (instance == null)
 
@@ -45,4 +49,17 @@ public class GameManager : MonoBehaviour {
     void Update () {
 		
 	}
+
+    private void OnGUI()
+    {
+        Event e = Event.current;
+        if(e.keyCode == KeyCode.P)
+        {
+            mainCamera.orthographicSize -= 0.2f;
+        }
+        else if(e.keyCode == KeyCode.M)
+        {
+            mainCamera.orthographicSize += 0.2f;
+        }
+    }
 }
