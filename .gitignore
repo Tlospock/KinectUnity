@@ -5,3 +5,10 @@
 /.vs/KinectUnity/v15/Server/sqlite3
 *.lock
 /Temp/UnityLockfile
+*.meta
+*.info
+/Library/metadata
+/Temp/UnityVS_bin/Debug
+/Temp/UnityVS_obj/Debug
+/Temp/__Backupscenes
+/Temp
