@@ -54,7 +54,7 @@ public class PlayerMovingScript : MonoBehaviour
         hit = Physics2D.Linecast(start, end, blockingLayer);
         boxCollider.enabled = false;
 
-        if(hit.transform == null)
+        if (hit.transform == null)
         {
             StartCoroutine(SmoothMovement(end));
             return true;
@@ -62,7 +62,7 @@ public class PlayerMovingScript : MonoBehaviour
         return false;
     }
 
-    protected virtual void AttemptMove<T>(int xDir, int yDir) where T: Component
+    protected virtual void AttemptMove<T>(int xDir, int yDir) where T : Component
     {
         RaycastHit2D hit;
         bool canMove;
@@ -81,7 +81,7 @@ public class PlayerMovingScript : MonoBehaviour
     {
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
 
-        while(sqrRemainingDistance > float.Epsilon)
+        while (sqrRemainingDistance > float.Epsilon)
         {
             Vector3 newPosition = Vector3.MoveTowards(rBody2D.position, end, inverseMoveTime * Time.deltaTime);
             rBody2D.MovePosition(newPosition);
@@ -90,7 +90,7 @@ public class PlayerMovingScript : MonoBehaviour
         }
     }
 
-    protected void OnCantMove<T> (T component) where T : Component
+    protected void OnCantMove<T>(T component) where T : Component
     {
         // TODO
     }
