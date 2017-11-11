@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMovingScript : MonoBehaviour
@@ -9,15 +10,16 @@ public class PlayerMovingScript : MonoBehaviour
     //private Vector2 movement;
     private Vector3 screenPoint;
     private Vector3 offset;         //Private variable to store the offset distance between the player and camera
-    private Vector2 keyoffset;         //Private variable to store the offset distance between the player and camera
-    //public int moveRange, initialX, initialY;
+    private Vector2 keyoffset;         //Private variable to store the offset distance between the player and camera 
     //public bool[,] reachableCases; 
+    public int moveRange, initialX, initialY;
 
     // Use this for initialization
     void Start()
     {
         //Calculate and store the offset value by getting the distance between the player's position and camera's position.
         offset = transform.position;
+        moveRange = 6;
     }
 
     // Update is called once per frame
@@ -47,6 +49,6 @@ public class PlayerMovingScript : MonoBehaviour
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z); // hardcode the y and z for your use
 
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = new Vector2((float)Math.Round(curPosition.x), (float)Math.Round(curPosition.y));
+        transform.position = curPosition;
     }
 }
