@@ -11,6 +11,8 @@ public class MoveRange : MonoBehaviour
     public List<GameObject> tilesDisplayed;
     public Transform tileSpawn;
 
+    private static int minX = -2, maxX = 8, minY = -2, maxY = 8;
+
     private bool[,] reachable;
 
     private void Start()
@@ -51,6 +53,9 @@ public class MoveRange : MonoBehaviour
                 {
                     Debug.Log(string.Format("Creating tile on [{0}, {1}]", i, j));
                     offsetTile.transform.position = tileSpawn.position + new Vector3(i - rangeInTiles, j - rangeInTiles);
+                    if (offsetTile.transform.position.x < minX || maxX < offsetTile.transform.position.x ||
+                       offsetTile.transform.position.y < minY || maxY < offsetTile.transform.position.y)
+                        continue;   //Out of map
                     tilesDisplayed.Add(Instantiate(tile, offsetTile.transform.position, offsetTile.transform.rotation) as GameObject);
                 }
             }
@@ -65,6 +70,10 @@ public class MoveRange : MonoBehaviour
 
     private void OnMouseUp()
     {
-
+        foreach (GameObject tile in tilesDisplayed)
+        {
+            Destroy(tile);
+        }
+        tilesDisplayed.Clear();
     }
 }
